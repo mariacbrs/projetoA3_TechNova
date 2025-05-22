@@ -32,7 +32,7 @@ export default function SideMenu() {
               <>
                 {Icon && (
                   <Icon
-                    size={20}
+                    size={10}
                     className="menu-item-icon"
                     color="currentColor"
                   />

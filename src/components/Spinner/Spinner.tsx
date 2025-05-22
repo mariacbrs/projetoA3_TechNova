@@ -33,9 +33,9 @@ Esse padrão é bastante comum em aplicações para indicar ao usuário que uma 
 
 */
 export function Spinner({
-  type = 'rodando',
+  type = 'empoleia',
   size = 'medio',
-  colorClass = 'azul',
+  colorClass = 'verde',
   blockScreen = false,
 }: SpinnerProps) {
   const spinnerElement = (

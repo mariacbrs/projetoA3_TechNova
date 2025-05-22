@@ -12,22 +12,22 @@ export const sideMenuConfig: MenuSection<SideMenuItem>[] = [
         icon: 'Open'
       },
       {
-        key: 'panel',
-        path: '/panel',
-        label: 'Painel',
-        icon: 'FaChartPie'
+        key: 'perfil',
+        path: '/perfil',
+        label: 'Meu Perfil',
+        icon: 'User'
       },
       {
-        key: 'uni',
-        path: '/uni',
-        label: 'Universidade',
-        icon: 'FaUniversity'
+        key: 'agendamentos',
+        path: '/agendamentos',
+        label: 'Agenda',
+        icon: 'Calendar'
       },
       {
-        key: 'view',
-        label: 'Visualizar',
-        icon: 'FaBook',
-        onClick: undefined
+        key: 'produtos',
+        path: '/produtos',
+        label: 'Produtos',
+        icon: 'Book'
       }
     ]
   }

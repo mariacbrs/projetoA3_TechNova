@@ -5,7 +5,7 @@ aside.side-menu {
   width: var(--aside-min);           
   min-width: var(--aside-min);
   height: 100%;
-  background: var(--gray-medium);
+  background: var(--purple-light);
   padding: var(--gutter);
   overflow-y: auto;
   transition: width 0.3s ease;
@@ -16,7 +16,6 @@ aside.side-menu {
   min-width: var(--header-height);
 }
 
-/* Seções */
 .menu-section {
   margin-bottom: var(--gutter);
 }
@@ -30,14 +29,14 @@ aside.side-menu {
   gap: var(--gutter);
 }
 
-/* Cada item vira um link em coluna */
 .menu-item-link {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+  text-align: center;
   text-decoration: none;
-  color: inherit;
+  color: black;
   padding: 0.5rem 0;
   border-radius: 4px;
   transition: background 0.2s ease;
@@ -45,10 +44,9 @@ aside.side-menu {
 }
 
 .menu-item-link:hover {
-  background: rgba(255,255,255,0.1);
+  background:  var(--color-primary);
 }
 
-/* Ícone em cima, label embaixo */
 .menu-item-icon {
   color: currentColor;
   font-size: 1.2rem;
@@ -57,12 +55,11 @@ aside.side-menu {
 }
 
 .menu-item-label {
-  margin-top: 0.25rem;
+  /* margin-top: 0.25rem; */
   font-size: 0.75rem;
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 
-/* No colapso, esconde o texto */
 .side-menu.collapsed .menu-item-label {
   display: none;
 }
