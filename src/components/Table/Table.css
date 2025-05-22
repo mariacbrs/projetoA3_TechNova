@@ -1,0 +1,75 @@
+/* Table.css */
+
+.table-wrapper {
+    overflow-x: auto;
+    width: 100%;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.custom-table th,
+.custom-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+    white-space: nowrap;
+}
+
+/* Alinhamento por tipo */
+.custom-table .col-number {
+    text-align: right;
+}
+
+.custom-table .col-text {
+    text-align: left;
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.custom-table .col-date {
+    text-align: center;
+}
+
+/* Cabeçalhos com alinhamento correspondente */
+.custom-table th.col-number {
+    text-align: right;
+}
+
+.custom-table th.col-text {
+    text-align: left;
+}
+
+.custom-table th.col-date {
+    text-align: center;
+}
+
+/* Hover nas linhas */
+.custom-table tbody tr:hover {
+    background-color: #f1f5ff;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Coluna de ações */
+.col-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.col-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #007bff;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    justify-content: center;
+}

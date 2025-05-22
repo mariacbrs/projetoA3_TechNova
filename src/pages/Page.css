@@ -1,0 +1,42 @@
+/* Page.css */
+.page {
+    grid-area: main;
+    /* encaixa na área “main” */
+    padding: var(--gutter);
+    background: #fff;
+    color: var(--gray-dark);
+    overflow-y: auto;
+}
+
+.page-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--gray-dark);
+}
+
+.page h3 {
+    margin-top: 1.5rem;
+    font-size: 1.125rem;
+    color: var(--gray-dark);
+}
+
+.page ul {
+    list-style: none;
+    margin: 0.5rem 0 0 0;
+    padding: 0;
+}
+
+.page ul li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.page ul li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 0.2rem;
+    color: var(--color-secondary);
+}

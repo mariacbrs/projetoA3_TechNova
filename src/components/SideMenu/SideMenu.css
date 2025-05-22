@@ -1,0 +1,68 @@
+/* SideMenu.css */
+
+aside.side-menu {
+  grid-area: aside;                  
+  width: var(--aside-min);           
+  min-width: var(--aside-min);
+  height: 100%;
+  background: var(--gray-medium);
+  padding: var(--gutter);
+  overflow-y: auto;
+  transition: width 0.3s ease;
+}
+
+.side-menu.collapsed {
+  width: var(--header-height);       
+  min-width: var(--header-height);
+}
+
+/* Seções */
+.menu-section {
+  margin-bottom: var(--gutter);
+}
+
+.menu-section-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gutter);
+}
+
+/* Cada item vira um link em coluna */
+.menu-item-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: inherit;
+  padding: 0.5rem 0;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+  width: 100%;
+}
+
+.menu-item-link:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Ícone em cima, label embaixo */
+.menu-item-icon {
+  color: currentColor;
+  font-size: 1.2rem;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.menu-item-label {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+/* No colapso, esconde o texto */
+.side-menu.collapsed .menu-item-label {
+  display: none;
+}
