@@ -1,7 +1,7 @@
 /* Page.css */
 .page {
     grid-area: main;
-    /* encaixa na área “main” */
+   
     padding: var(--gutter);
     background: #fff;
     color: var(--gray-dark);
@@ -39,4 +39,100 @@
     left: 0;
     top: 0.2rem;
     color: var(--color-secondary);
+}
+
+.hero-section {
+  position: relative;
+  height: 60vh;
+  background-image: url('../img/banner.png'); 
+  background-size: cover;
+  background-position: unset;
+  background-repeat: no-repeat;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-content h1 {
+  color: #1A050D;
+  font-size: 4rem;
+  font-weight: 300;
+  font-style: oblique;
+}
+
+
+.about-section {
+  padding: 50px 0px;
+  max-width: 2500px;
+  margin: 0 auto;
+}
+
+.about-section h2 {
+  color: #5271FF; 
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  font-weight: 500;
+  text-align: left;
+  
+}
+
+.about-section p {
+  color: #333;
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 1100;
+  text-align: center;
+}
+
+.product-service-section {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 60px 20px;
+  gap: 40px;
+}
+
+.product-box {
+  max-width: 300px;
+  text-align: center;
+}
+
+.product-box h2 {
+  color: #5271FF; 
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+    
+}
+
+.product-box img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.service-box {
+  flex: 1;
+  min-width: 200px;
+  text-align: center;
+}
+
+.service-box h3 {
+  font-size: 2rem;
+  color: #1a1a1a;
 }

@@ -4,6 +4,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { FloatingInput } from '../../components/FloatingInput/FloatingInput';
 import './Login.css';
 
+
 export function Login() {
   const [form, setForm] = useState({ email: '', senha: '' });
   const [erro, setErro] = useState('');
@@ -54,6 +55,15 @@ export function Login() {
         <button type="submit" className="login-button" disabled={loading}>
           {loading ? 'Entrando...' : 'Entrar'}
         </button>
+        
+
+         <button
+        type="button"
+        className="Register-button"
+        onClick={() => navigate('/register')}
+        >   
+        Registre-se
+      </button>
 
         {erro && <p className="login-error">{erro}</p>}
       </form>

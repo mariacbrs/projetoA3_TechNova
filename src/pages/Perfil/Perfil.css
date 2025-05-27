@@ -1,0 +1,79 @@
+.perfil-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.perfil-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.perfil-visao {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+h2 {
+  margin-bottom: 0.5rem;
+}
+
+h3 {
+  margin: 2rem 0 1rem;
+}
+
+.perfil-info label {
+  font-weight: bold;
+  display: block;
+  margin-top: 1rem;
+}
+
+.perfil-info p,
+.perfil-info input {
+  margin: 0.25rem 0 0.5rem;
+  width: 100%;
+  padding: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.perfil-info input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn-atualizar {
+  margin-top: 2rem;
+  padding: 12px 20px;
+  width: 100%;
+  background-color: #6c77f4;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-atualizar:hover {
+  background-color: #4b56d2;
+}
+
+.btn-logout {
+  margin-top: 1rem;
+  padding: 10px 20px;
+  width: 100%;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-logout:hover {
+  background-color: #c0392b;
+}
