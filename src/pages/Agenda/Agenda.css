@@ -1,0 +1,29 @@
+
+
+.agenda-container {
+  padding: 20px;
+  font-size: 24px;
+  font-weight: bold;
+ 
+  
+}
+ 
+h1{
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.calendario {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 5%;
+}
+
+.calendario > div {
+  width: 100%;
+  max-width: 1300px; /* ajuste conforme necessário */
+}
+
+
+
