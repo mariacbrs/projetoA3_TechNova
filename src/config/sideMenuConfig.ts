@@ -26,8 +26,7 @@ export const sideMenuConfig: MenuSection<SideMenuItem>[] = [
         path: '/produtos',
         label: 'Produtos',
         icon: 'Book',
-        role:0
-
+        
       }
     ]
   }
