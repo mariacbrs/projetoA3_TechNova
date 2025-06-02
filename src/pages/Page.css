@@ -1,7 +1,6 @@
 /* Page.css */
 .page {
     grid-area: main;
-    /* encaixa na área “main” */
     padding: var(--gutter);
     background: #fff;
     color: var(--gray-dark);

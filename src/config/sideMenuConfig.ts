@@ -1,8 +1,5 @@
 import { SideMenuItem, MenuSection } from './menuTypes';
 
-/**
- * Configuração do SideMenu, se path => navegação, senão => onClick
- */
 export const sideMenuConfig: MenuSection<SideMenuItem>[] = [
   {
     items: [
@@ -16,6 +13,7 @@ export const sideMenuConfig: MenuSection<SideMenuItem>[] = [
         path: '/perfil',
         label: 'Meu Perfil',
         icon: 'User'
+
       },
       {
         key: 'agendamentos',
@@ -27,7 +25,9 @@ export const sideMenuConfig: MenuSection<SideMenuItem>[] = [
         key: 'produtos',
         path: '/produtos',
         label: 'Produtos',
-        icon: 'Book'
+        icon: 'Book',
+        role:0
+
       }
     ]
   }
