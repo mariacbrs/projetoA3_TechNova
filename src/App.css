@@ -7,12 +7,3 @@
 @import './pages/Page.css';                /* main.page { grid-area: main; ... } */
 @import './components/Card/Card.css';          /* .card { ... } */
 @import './components/Footer/Footer.css';        /* footer { grid-area: footer; ... } */
-
-
-.products-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-  justify-content: center;
-  margin-top: 32px;
-}

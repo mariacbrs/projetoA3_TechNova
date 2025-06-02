@@ -1,7 +1,6 @@
 /* Page.css */
 .page {
     grid-area: main;
-   
     padding: var(--gutter);
     background: #fff;
     color: var(--gray-dark);
@@ -43,11 +42,12 @@
 
 .hero-section {
   position: relative;
-  height: 60vh;
+  height: 70vh;
   background-image: url('../img/banner.png'); 
-  background-size: cover;
+  background-size:cover;
   background-position: unset;
   background-repeat: no-repeat;
+  width: 100%;
 }
 
 .overlay {
@@ -56,7 +56,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(252, 252, 252, 0.258);
 }
 
 .hero-content {
@@ -69,10 +69,9 @@
 }
 
 .hero-content h1 {
-  color: #1A050D;
-  font-size: 4rem;
-  font-weight: 300;
-  font-style: oblique;
+  color: #5271FF;
+  font-size: 6rem;
+  font-weight: 400;
 }
 
 
@@ -82,7 +81,7 @@
   margin: 0 auto;
 }
 
-.about-section h2 {
+ h2 {
   color: #5271FF; 
   font-size: 1.8rem;
   margin-bottom: 2rem;
@@ -101,38 +100,40 @@
 
 .product-service-section {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 60px 20px;
-  gap: 40px;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.product-box {
-  max-width: 300px;
-  text-align: center;
-}
 
-.product-box h2 {
-  color: #5271FF; 
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  font-weight: 500;
-    
-}
-
-.product-box img {
+#conteudo{
+  display: flex;
   width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
   border-radius: 10px;
-}
-
-.service-box {
-  flex: 1;
-  min-width: 200px;
   text-align: center;
-}
-
-.service-box h3 {
+  align-items: center;
   font-size: 2rem;
   color: #1a1a1a;
+  padding-bottom: 4vh;
 }
+
+#conteudo> img{
+  border-radius: 10px;
+  width: 40%;
+}
+
+#conteudo > h3{
+  width: 55%;
+  font-size: 60px;
+  font-weight: 200;
+}
+
+.products-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  flex-direction: row;  
+}
+

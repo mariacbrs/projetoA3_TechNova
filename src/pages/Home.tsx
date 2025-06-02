@@ -19,14 +19,12 @@ export function Home() {
 
   return (
     <section>
-    
       <div className="hero-section">
         <div className="overlay"></div>
         <div className="hero-content">
-          <h1>Welcome</h1>
+          <h1>Tech Nova</h1>
         </div>
       </div>
-
       <div className="about-section">
         <h2>Sobre nós</h2>
         <p>
@@ -41,28 +39,25 @@ export function Home() {
           dictum eros sit amet volutpat.
         </p>
       </div>
-
       <div className="product-service-section">
-         <div className="product-box">
-         <h2>Conheça nossos produtos</h2>
-         <img src={logo1} alt="Imagem produto" />
-         </div>
-         <div className="service-box">
-         <h3>Serviço</h3>
-         </div>
+        <h2>Conheça nossos produtos</h2>
+        
+        <div id="conteudo">
+          <img src={logo1} alt="Imagem produto" />
+          <h3>Serviço</h3>
+        </div>
+
+        {loading ? (
+          <Spinner type="rodando" size="medio" colorClass="purple" blockScreen />
+        ) : (
+          <div className="products-grid">
+            {products.map((item) => (
+              <Card key={item.id} {...item} />
+            ))}
+          </div>
+        )}
       </div>
 
-
-      {/* Produtos */}
-      {loading ? (
-        <Spinner type="rodando" size="medio" colorClass="purple" blockScreen />
-      ) : (
-        <div className="products-grid">
-          {products.map((item) => (
-            <Card key={item.id} {...item} />
-          ))}
-        </div>
-      )}
     </section>
   );
 }
