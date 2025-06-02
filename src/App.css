@@ -8,6 +8,7 @@
 @import './components/Card/Card.css';          /* .card { ... } */
 @import './components/Footer/Footer.css';        /* footer { grid-area: footer; ... } */
 
+
 .products-grid {
   display: flex;
   flex-wrap: wrap;

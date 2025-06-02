@@ -55,7 +55,7 @@ export function Home() {
 
       {/* Produtos */}
       {loading ? (
-        <Spinner type="rodando" size="grande" colorClass="azul" blockScreen />
+        <Spinner type="rodando" size="medio" colorClass="purple" blockScreen />
       ) : (
         <div className="products-grid">
           {products.map((item) => (
