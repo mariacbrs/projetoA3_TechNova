@@ -26,10 +26,7 @@ export default function Agenda() {
         end:"dayGridMonth,timeGridWeek,timeGridDay",
         
       }}
-      height={"60vh"}
-
-     
-      
+      height={"80vh"}
       />
       </div>
     </div>

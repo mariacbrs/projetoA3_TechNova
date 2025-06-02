@@ -1,11 +1,8 @@
-
-
 .agenda-container {
   padding: 20px;
   font-size: 24px;
   font-weight: bold;
- 
-  
+  height: 100vh;
 }
  
 h1{
