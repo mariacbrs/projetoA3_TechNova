@@ -95,7 +95,9 @@
   font-size: 1rem;
   line-height: 1.6;
   max-width: 1100;
-  text-align: center;
+  text-align: left;
+  
+  
 }
 
 .product-service-section {

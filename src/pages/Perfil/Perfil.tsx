@@ -4,6 +4,7 @@ import "./Perfil.css";
 
 export function Perfil() {
   const navigate = useNavigate();
+  
 
   const [usuario, setUsuario] = useState({
     nome: "",
@@ -47,8 +48,9 @@ export function Perfil() {
 
   return (
     <div className="perfil-container">
+      
       <div className="perfil-header">
-        <h2>👤 Meu Perfil</h2>
+      <h2> Meu Perfil</h2>
         
       </div>
 
