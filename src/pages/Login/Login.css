@@ -1,7 +1,9 @@
 .login-container {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
+  padding: 45px 50px 100px 340px;
+
 }
 
 .login-box {

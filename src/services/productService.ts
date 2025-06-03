@@ -11,16 +11,44 @@ export function fetchProducts(): Promise<Product[]> {
       resolve([
         {
           id: 1,
-          title: "AppFinanças",
+          title: "Preenchimento",
           description:
-            "Gestão financeira pessoal e empresarial com relatórios e metas.",
+            "Lábios, olheiras, mandíbula e muito mais.",
           booking: "#",
         },
         {
           id: 2,
-          title: "EdukaOnline",
+          title: "Peeling Retinóico",
           description:
-            "Plataforma EAD com gamificação e relatórios de desempenho.",
+            "Dê adeus para a acne, linhas finas e hiperpigmentação.",
+          booking: "#",
+        },
+        {
+          id: 3,
+          title: "Lavieen",
+          description:
+            "Rejuvenescimento e revitalização da pele com tecnologia avançada.",
+          booking: "#",
+        },
+        {
+          id: 4,
+          title: "Máscara de Ouro",
+          description:
+            "Hidratação e renovação da textura da pele.",
+          booking: "#",
+        },
+        {
+          id: 5,
+          title: "Microagulhamento",
+          description:
+            "Rejuvenescimento, amenização de manchas e cicatrizes.",
+          booking: "#",
+        },
+        {
+          id: 6,
+          title: "Ultraformer III",
+          description:
+            "Efeito lifting e rejuvenescimento sem cirurgia.",
           booking: "#",
         },
       ]);

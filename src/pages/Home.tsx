@@ -28,16 +28,9 @@ export function Home() {
       <div className="about-section">
         <h2>Sobre nós</h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-          interdum ante et velit aliquam interdum. Morbi commodo dolor enim, ut
-          suscipit mi lacinia quis. Maecenas vestibulum erat id ex ultricies,
-          sed sodales metus consequat. Vivamus ac dolor sit amet enim sodales
-          tincidunt. In ipsum urna, pretium quis sollicitudin ac, congue a
-          velit. Sed lacus nibh, ultricies nec enim id, ultrices auctor orci.
-          Vivamus pellentesque aliquet arcu, et elementum libero tempus sit
-          amet. Sed non luctus tellus, non accumsan purus. Mauris ullamcorper
-          dictum eros sit amet volutpat.
-        </p>
+        Acreditamos na transformação positiva que a jornada da beleza pode proporcionar. Para isso, oferecemos tratamentos estéticos confiáveis e seguros, impulsionados por alta tecnologia e pela personalização de atendimento, ajudando a elevar a autoestima e o amor próprio de nossos clientes.<br></br>
+
+Mais do que uma rede de lojas, somos uma comunidade de profissionais que valorizam a diversidade da autoestima. Nós somos a TechNova e estamos prontos para te acompanhar na sua jornada da beleza.        </p>
       </div>
       <div className="product-service-section">
         <h2>Conheça nossos produtos</h2>

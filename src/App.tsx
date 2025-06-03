@@ -6,12 +6,20 @@ import { Home } from './pages/Home';
 import { Login } from './pages/Login/Login';
 import Register from './pages/Register/Register';  
 import './App.css';
-import SideMenu from './components/SideMenu/SideMenu';
+
+import AdminMenu from './components/SideMenu/SideMenu';
+import UserMenu from './components/SideMenu/SideMenuUsu';
+
 import { Perfil } from './pages/Perfil/Perfil';
 import Agenda from './pages/Agenda/Agenda';
 
 
 export default function App() {
+
+  const role = localStorage.getItem('userRole') || 'cliente';
+
+  const SideMenu = role === '0' ? AdminMenu : UserMenu;
+
   return (
     <Router>
       <div className="grid-container">
