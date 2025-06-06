@@ -7,7 +7,7 @@
 .floating-input {
     width: 100%;
     padding: 14px 12px;
-    font-size: 16px;
+    font-size: 18px;
     border: 1px solid #aaa;
     border-radius: 8px;
     background: none;
@@ -20,7 +20,7 @@
     top: 14px;
     left: 12px;
     color: black;
-    font-size: 16px;
+    font-size: 18px;
     pointer-events: none;
     transition: 0.2s ease all;
     background-color: white;
@@ -32,7 +32,7 @@
 .floating-input[type="date"]:valid+.floating-label,
 .floating-input[type="password"]:not(:placeholder-shown)+.floating-label {
     top: -10px;
-    font-size: 12px;
+    font-size: 18px;
     color: black;
 }
 

@@ -7,3 +7,4 @@
 @import './pages/Page.css';                /* main.page { grid-area: main; ... } */
 @import './components/Card/Card.css';          /* .card { ... } */
 @import './components/Footer/Footer.css';        /* footer { grid-area: footer; ... } */
+@import './components/FloatingInput/FloatingInput.css';        /* footer { grid-area: footer; ... } */

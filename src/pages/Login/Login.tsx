@@ -32,9 +32,10 @@ export function Login() {
   }
 
   return (
+    <section id='login-page'>
     <div className="login-container">
       <form className="login-box" onSubmit={handleSubmit}>
-        <h2 className="login-title">Acesso ao Sistema</h2>
+        <h2 className="login-title">Login</h2>
 
         <FloatingInput
           label="Email"
@@ -68,5 +69,6 @@ export function Login() {
         {erro && <p className="login-error">{erro}</p>}
       </form>
     </div>
+    </section>
   );
 }

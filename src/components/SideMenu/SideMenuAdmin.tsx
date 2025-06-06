@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { sideMenuConfig } from '../../config/sideMenuConfig';
+import { menuAdminConfig } from '../../config/menuAdminConfig';
 import { iconRegistry } from '../../config/iconRegistry';
 import { SideMenuItem, MenuSection } from '../../config/menuTypes';
 import './SideMenu.css';
@@ -9,7 +9,7 @@ export default function SideMenu() {
   const [collapsed, setCollapsed] = useState(false);
   const toggle = () => setCollapsed(c => !c);
 
-  const sections = sideMenuConfig.map((sec: MenuSection<SideMenuItem>) => ({
+  const sections = menuAdminConfig.map((sec: MenuSection<SideMenuItem>) => ({
     items: sec.items.map(item =>
       item.key === 'toggle'
         ? {

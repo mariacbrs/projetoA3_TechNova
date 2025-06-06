@@ -6,10 +6,9 @@ export interface CardProps {
   id: number;
   title: string;
   description: string;
-  image?: string;
 }
 
-export function Card({ id, title, description, image }: CardProps) {
+export function Card({ id, title, description }: CardProps) {
   const navigate = useNavigate();
 
   const handleSchedule = () => {
@@ -25,11 +24,8 @@ export function Card({ id, title, description, image }: CardProps) {
       transition={{ duration: 0.4, ease: "easeOut" }}
       whileHover={{ scale: 1.02, boxShadow: "0 8px 24px rgba(0,0,0,0.15)" }}
     >
-      {image && (
-        <img src={image} alt={title} className="card-image" />
-      )}
 
-      <motion.h3
+      <motion.h2
         className="card-title"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -37,7 +33,7 @@ export function Card({ id, title, description, image }: CardProps) {
         transition={{ delay: 0.1, duration: 0.5 }}
       >
         {title}
-      </motion.h3>
+      </motion.h2>
 
       <motion.p
         className="card-description"
@@ -54,7 +50,7 @@ export function Card({ id, title, description, image }: CardProps) {
         className="card-button"
         whileTap={{ scale: 0.95 }}
       >
-        Agendar
+        Agende agora!
       </motion.button>
     </motion.div>
   );

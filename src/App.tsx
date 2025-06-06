@@ -4,11 +4,11 @@ import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { Home } from './pages/Home';
 import { Login } from './pages/Login/Login';
-import Register from './pages/Register/Register';  
+import { Register } from './pages/Register/Register';  
 import './App.css';
 
-import AdminMenu from './components/SideMenu/SideMenu';
-import UserMenu from './components/SideMenu/SideMenuUsu';
+import AdminMenu from './components/SideMenu/SideMenuAdmin';
+import UserMenu from './components/SideMenu/SideMenuUser';
 
 import { Perfil } from './pages/Perfil/Perfil';
 import Agenda from './pages/Agenda/Agenda';

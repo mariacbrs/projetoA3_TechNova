@@ -1,29 +1,28 @@
 .card {
   background: white;
   border-radius: 16px;
-  padding: 20px;
+  padding: 10px;
   box-shadow: 0 8px 12px rgba(0,0,0,0.1);
   text-align: center;
-  max-width: 300px;
- 
-}
-
-.card-image {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-  margin-bottom: 16px;
+  width: 25%;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .card-title {
-  font-size: 1.25rem;
+  font-size: 25px;
   font-weight: bold;
-  margin-bottom: 8px;
+  color: black;
+  padding: 0;
 }
 
 .card-description {
   color: #555;
-  margin-bottom: 16px;
+  font-size: 20px;
+  width: 90%;
 }
 
 .card-button {
@@ -34,6 +33,9 @@
   border-radius: 9999px;
   cursor: pointer;
   transition: background 0.3s;
+  font-size: 20px;
+  width: 50%;
+  height: 5vh;
 }
 
 .card-button:hover {

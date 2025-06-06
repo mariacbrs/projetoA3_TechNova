@@ -1,79 +1,92 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Register.css";
+import { useAuth } from '../../hooks/useAuth';
+import { FloatingInput } from '../../components/FloatingInput/FloatingInput';
 
-export default function Register() {
-  const [formData, setFormData] = useState({
+
+export function Register() {
+  const [form, setForm] = useState({
     nome: "",
     email: "",
     telefone: "",
-    senha: "",
+    senha: ""
   });
+  const [erro, setErro] = useState('');
+  const [loading, setLoading] = useState(false);
+  const { login } = useAuth(); // ← usa o contexto de autenticação
+  const navigate = useNavigate(); // ← redireciona após login
 
-  const navigate = useNavigate();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+    setForm(prev => ({ ...prev, [name]: value }));
+  }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    
-    // Salva os dados do usuário no localStorage
-    localStorage.setItem("usuario", JSON.stringify(formData));
-
-    // Redireciona para a página de perfil
-    navigate("/perfil");
-  };
+    setErro('');
+    setLoading(true);
+    try {
+      await login(form.email, form.senha);  // ← usa o login do contexto
+      navigate('/perfil');                        // ← redireciona para perfil
+    } catch (err) {
+      setErro('Email ou senha inválidos.');
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
-    <div className="register-container">
-      <form className="register-form" onSubmit={handleSubmit}>
-        <h2>Cadastro</h2>
+    <section id='register-page'>
+      <div className="register-container">
+        <form className="register-box" onSubmit={handleSubmit}>
+          <h2 className="register-title">Cadastro</h2>
 
-        <label htmlFor="nome">Nome Completo</label>
-        <input
+        <FloatingInput
+          label="Nome Completo"
           type="text"
-          id="nome"
           name="nome"
-          value={formData.nome}
+          value={form.nome}
           onChange={handleChange}
-          required
         />
-
-        <label htmlFor="email">E-mail</label>
-        <input
+        <FloatingInput
+          label="Email"
           type="email"
-          id="email"
           name="email"
-          value={formData.email}
+          value={form.email}
           onChange={handleChange}
-          required
         />
-
-        <label htmlFor="telefone">Telefone</label>
-        <input
+        <FloatingInput
+          label="Telefone"
           type="tel"
-          id="telefone"
           name="telefone"
-          value={formData.telefone}
+          value={form.telefone}
           onChange={handleChange}
-          required
         />
-
-        <label htmlFor="senha">Senha</label>
-        <input
+        <FloatingInput
+          label="Senha"
           type="password"
-          id="senha"
           name="senha"
-          value={formData.senha}
+          value={form.senha}
           onChange={handleChange}
-          required
         />
 
-        <button type="submit">Registrar</button>
+        <button type="submit" className="Register-button" disabled={loading}>
+          {loading ? 'Registrando...' : 'Registrar'}
+        </button>
+        
+
+         <button
+        type="button"
+        className="login-button"
+        onClick={() => navigate('/login')}
+        >   
+        Login
+      </button>
+
+        {erro && <p className="register-error">{erro}</p>}
       </form>
     </div>
+    </section>
   );
 }

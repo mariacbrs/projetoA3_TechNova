@@ -3,7 +3,7 @@ import { SideMenuItem, MenuSection } from './menuTypes';
 /**
  * Configuração do SideMenu, se path => navegação, senão => onClick
  */
-export const sideMenuConfig: MenuSection<SideMenuItem>[] = [
+export const menuAdminConfig: MenuSection<SideMenuItem>[] = [
   {
     items: [
        {
@@ -24,9 +24,9 @@ export const sideMenuConfig: MenuSection<SideMenuItem>[] = [
         icon: 'Calendar'
       },
       {
-        key: 'produtos',
-        path: '/produtos',
-        label: 'Produtos',
+        key: 'Procedimentos',
+        path: '/procedimentos',
+        label: 'Procedimentos',
         icon: 'Book'
       }
     ]

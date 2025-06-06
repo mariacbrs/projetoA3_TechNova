@@ -3,7 +3,7 @@ import './FloatingInput.css';
 
 type FloatingInputProps = {
   readonly label: string;
-  readonly type: 'text' | 'number' | 'date' | 'password' | 'email' ;
+  readonly type: 'text' | 'number' | 'date' | 'password' | 'email'  | 'tel'  ;
   readonly name: string;
   readonly value: string;
   readonly onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
