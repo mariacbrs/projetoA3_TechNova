@@ -1,0 +1,38 @@
+:root {
+  --fc-button-hover-bg-color: #5271FF;
+  --fc-button-hover-border-color: #5271FF;
+  --fc-today-bg-color: #778ae054;
+}
+
+.procedimentos-container {
+  padding: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  height: 100vh;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 35px;
+  padding: 0;
+}
+
+.add-button {
+  width: 15%;
+  height: 5vh;
+  background-color: var(--txt-purple);
+  color: white;
+  border: none;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-button:hover {
+  background-color: #5272ffd6;
+}
+

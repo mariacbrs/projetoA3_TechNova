@@ -1,4 +1,3 @@
-// services/authService.ts
 export function fakeLogin(email: string, senha: string): Promise<boolean> {
   return new Promise((resolve, reject) => {
     setTimeout(() => {

@@ -1,26 +1,90 @@
+:root {
+  --fc-button-hover-bg-color: #5271FF;
+  --fc-button-hover-border-color: #5271FF;
+  --fc-today-bg-color: #778ae054;
+}
+
 .agenda-container {
-  padding: 20px;
+  padding: 10px;
   font-size: 24px;
   font-weight: bold;
   height: 100vh;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: column;
 }
- 
-h1{
-  margin-left: 20px;
-  margin-bottom: 20px;
+
+h1 {
+  font-size: 35px;
+  padding: 2vh 0 8vh 0;
 }
 
 .calendario {
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 5%;
+  color: black;
+
 }
 
-.calendario > div {
+.calendario>div {
   width: 100%;
-  max-width: 1300px; /* ajuste conforme necessário */
+  max-width: 1300px;
 }
 
+.fc-toolbar-title {
+  text-transform: capitalize;
+  color: black;
+}
 
+.fc .fc-button-primary:disabled {
+  background-color: var(--purple-light);
+  border-color: var(--purple-light);
+  color: black;
+}
 
+.fc .fc-button:disabled {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: black;
+  opacity: 1;
+}
+
+.fc .fc-button:not(:disabled) {
+  cursor: pointer;
+}
+
+.fc .fc-button-primary {
+  background-color: var(--purple-light);
+  border-color: var(--purple-light);
+  color: black;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active,
+.fc .fc-button-primary:not(:disabled):active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: black;
+  opacity: 1;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+    background-color: #778ae054;
+}
+
+.add-button {
+  width: 15%;
+  height: 5vh;
+  background-color: var(--txt-purple);
+  color: white;
+  border: none;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-button:hover {
+  background-color: #5272ffd6;
+}

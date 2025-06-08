@@ -3,7 +3,7 @@
     --nav-height: 3rem;
     --footer-height: 6rem;
     --gutter: 1rem;
-    --aside-min: clamp(4rem, 10vw, 10rem);
+    --aside-min: clamp(4rem, 12vw, 13rem);
 
     --color-primary: #DFE3FF;
     --txt-purple: #5271FF;
@@ -59,7 +59,6 @@ aside {
     grid-area: aside;
     background: var(--gray-medium);
     color: var(--gray-dark);
-    /* padding: var(--gutter); */
     overflow-y: auto;
 }
 

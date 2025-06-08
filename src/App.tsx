@@ -12,6 +12,7 @@ import UserMenu from './components/SideMenu/SideMenuUser';
 
 import { Perfil } from './pages/Perfil/Perfil';
 import Agenda from './pages/Agenda/Agenda';
+import Procedimentos from './pages/Procedimentos/Procedimentos';
 
 
 export default function App() {
@@ -24,7 +25,8 @@ export default function App() {
     <Router>
       <div className="grid-container">
         <Header />
-        <SideMenu />
+        <AdminMenu />
+        {/* <UserMenu /> */}
         <main className="main page">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -32,6 +34,7 @@ export default function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/perfil" element={<Perfil />} />
             <Route path="/agendamentos" element={<Agenda />} />
+            <Route path="/procedimentos" element={<Procedimentos />} />
           </Routes>
         </main>
         <Footer />
