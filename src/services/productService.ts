@@ -1,16 +1,24 @@
+import api from './api';
+
 export type Product = {
   readonly id: number;
-  readonly title: string;
-  readonly description: string;
-  readonly booking: string;
+  readonly titulo: string;
+  readonly descricao: string
 };
 
-export function fetchProducts(): Promise<Product[]> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
-       
-      ]);
-    }, 1000); 
-  });
+export async function fetchProducts(): Promise<Product[]> {
+  const response = await api.get('/procedimentos');
+  return response.data;
+}
+
+export async function createProduct(product: Omit<Product, 'id'>): Promise<void> {
+  await api.post('/procedimentos', product);
+}
+
+export async function updateProduct(id: number, product: Omit<Product, 'id'>): Promise<void> {
+  await api.put(`/procedimentos/${id}`, product);
+}
+
+export async function deleteProduct(id: number): Promise<void> {
+  await api.delete(`/procedimentos/${id}`);
 }

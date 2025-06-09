@@ -2,55 +2,56 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { FloatingInput } from '../../components/FloatingInput/FloatingInput';
+import { login } from '../../services/authService';
 import './Login.css';
 
 
 export function Login() {
-  const [form, setForm] = useState({ email: '', senha: '' });
+ const navigate = useNavigate();
+  const { setUser } = useAuth();
+
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
   const [erro, setErro] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth(); // ← usa o contexto de autenticação
-  const navigate = useNavigate(); // ← redireciona após login
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
-  }
-
-  async function handleSubmit(e: React.FormEvent) {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setErro('');
     setLoading(true);
+
     try {
-      await login(form.email, form.senha);  // ← usa o login do contexto
-      navigate('/');                        // ← redireciona para home
+      const usuario = await login(email, senha);
+       setUser(usuario);
+      localStorage.setItem('userRole', usuario.tipo === 0 ? 'admin' : 'cliente');
+
+      navigate(usuario.tipo === 0 ? '/admin/home' : '/cliente/home');
     } catch (err) {
-      setErro('Email ou senha inválidos.');
+      setErro('Email ou senha inválidos');
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   return (
     <section id='login-page'>
     <div className="login-container">
-      <form className="login-box" onSubmit={handleSubmit}>
+      <form className="login-box" onSubmit={handleLogin}>
         <h2 className="login-title">Login</h2>
-
         <FloatingInput
           label="Email"
           type="text"
           name="email"
-          value={form.email}
-          onChange={handleChange}
+          value={email}
+          onChange={e => setEmail(e.target.value)}
         />
 
         <FloatingInput
           label="Senha"
           type="password"
           name="senha"
-          value={form.senha}
-          onChange={handleChange}
+          value={senha}
+          onChange={e => setSenha(e.target.value)}
         />
 
         <button type="submit" className="login-button" disabled={loading}>

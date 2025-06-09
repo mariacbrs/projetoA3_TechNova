@@ -1,32 +1,32 @@
-// App.tsx
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { Home } from './pages/Home';
 import { Login } from './pages/Login/Login';
-import { Register } from './pages/Register/Register';  
-import './App.css';
-
-import AdminMenu from './components/SideMenu/SideMenuAdmin';
-import UserMenu from './components/SideMenu/SideMenuUser';
+import { Register } from './pages/Register/Register';
+import { useAuth } from './hooks/useAuth'; 
+import AdminSideMenu from './components/SideMenu/SideMenuAdmin';
+import ClienteSideMenu from './components/SideMenu/SideMenuUser';
 
 import { Perfil } from './pages/Perfil/Perfil';
 import Agenda from './pages/Agenda/Agenda';
 import Procedimentos from './pages/Procedimentos/Procedimentos';
 
+import './App.css';
 
 export default function App() {
+  const { user } = useAuth();
 
-  const role = localStorage.getItem('userRole') || 'cliente';
-
-  const SideMenu = role === '0' ? AdminMenu : UserMenu;
+  const SideMenu = () => {
+    if (!user) return null;
+    return user.tipo === 0 ? <AdminSideMenu /> : <ClienteSideMenu />;
+  };
 
   return (
     <Router>
       <div className="grid-container">
         <Header />
-        <AdminMenu />
-        {/* <UserMenu /> */}
+        <SideMenu />
         <main className="main page">
           <Routes>
             <Route path="/" element={<Home />} />

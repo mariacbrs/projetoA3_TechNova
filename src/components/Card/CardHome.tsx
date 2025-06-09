@@ -3,12 +3,12 @@ import { motion } from "framer-motion";
 import "./Card.css";
 
 export interface CardProps {
-  id: number;
+  // id: number;
   title: string;
   description: string;
 }
-
-export function Card({ id, title, description }: CardProps) {
+// export function Card({ id, title, description }: CardProps) {
+export function CardHome({ title, description }: CardProps) {
   const navigate = useNavigate();
 
   const handleSchedule = () => {

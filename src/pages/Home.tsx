@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card } from "../components/Card/Card";
+import { CardHome } from "../components/Card/CardHome";
 import { fetchProducts, Product } from "../services/productService";
 import { Spinner } from "../components/Spinner/Spinner";
 import './Page.css';
@@ -36,8 +36,12 @@ export function Home() {
           <Spinner type="rodando" size="medio" colorClass="purple" blockScreen />
         ) : (
           <div className="products-grid">
-            {products.map((item) => (
-              <Card key={item.id} {...item} />
+            {products.map(p => (
+              <CardHome
+                key={p.id}
+                title={p.titulo}
+                description={p.descricao}
+              />
             ))}
           </div>
         )}

@@ -1,66 +1,81 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from '../../hooks/useAuth';
+import axios from 'axios';
 import "./Perfil.css";
 
 export function Perfil() {
+  const { user, setUser } = useAuth();
+  const [editando, setEditando] = useState(false);
+  const [form, setForm] = useState({ nome: '', email: '', telefone: '', senha: '' });
   const navigate = useNavigate();
 
-
-  const [usuario, setUsuario] = useState({
-    nome: "",
-    email: "",
-    telefone: "",
-    senha: "",
-  });
-
-  const [editando, setEditando] = useState(false);
-  const [form, setForm] = useState(usuario);
-
   useEffect(() => {
-    const dadosSalvos = localStorage.getItem("usuario");
-    if (dadosSalvos) {
-      const dados = JSON.parse(dadosSalvos);
-      setUsuario(dados);
-      setForm(dados); // preencher o formulário com os dados atuais
+    if (user) {
+      setForm({
+        nome: user.nome,
+        email: user.email,
+        telefone: user.telefone,
+        senha: ''
+      });
     }
-  }, []);
+  }, [user]);
 
-  function handleLogout() {
-    localStorage.removeItem("usuario");
-    navigate("/login");
-  }
-
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  }
+    setForm(prev => ({ ...prev, [name]: value }));
+  };
 
-  function handleAtualizarClick() {
+  const handleUpdate = async () => {
+    if (!user) return;
+
+    try {
+      await axios.put(`http://localhost:3001/api/auth/${user.id}`, form);
+      setUser({
+        ...user,
+        nome: form.nome,
+        telefone: form.telefone,
+      });
+      setEditando(false);
+      fecharModal();
+      alert('Perfil atualizado com sucesso.');
+    } catch (err) {
+      alert('Erro ao atualizar perfil.');
+    }
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.clear();
+    navigate('/login');
+  };
+
+  const handleAtualizarClick = () => {
     setEditando(true);
-  }
-
-  function handleSalvar(e: React.FormEvent) {
-    e.preventDefault();
-    setUsuario(form);
-    localStorage.setItem("usuario", JSON.stringify(form));
-    setEditando(false);
-    alert("Conta atualizada com sucesso!");
-    fecharModal();
-  }
+  };
 
   function abrirModal() {
     document.getElementById("modalConfirmacao")!.style.display = "flex";
   }
+
   function fecharModal() {
+    if (!user) return;
     document.getElementById("modalConfirmacao")!.style.display = "none";
-    setForm(usuario);
+    setForm({
+      nome: user.nome,
+      email: user.email,
+      telefone: user.telefone,
+      senha: ''
+    });
     setEditando(false);
   }
 
+  if (!user) {
+    return <p>Carregando usuário...</p>;
+  }
 
   return (
     <div className="perfil-container">
-
       <div className="perfil-header">
         <h3>Meu Perfil</h3>
       </div>
@@ -69,26 +84,25 @@ export function Perfil() {
         {!editando ? (
           <div className="perfil-info">
             <label>Nome Completo</label>
-            <p>{usuario.nome}</p>
+            <p>{form.nome}</p>
 
             <label>Email</label>
-            <p>{usuario.email}</p>
+            <p>{form.email}</p>
 
             <label>Telefone</label>
-            <p>{usuario.telefone}</p>
+            <p>{form.telefone}</p>
 
             <label>Senha</label>
-            <p>{"*".repeat(usuario.senha.length)}</p>
+            <p>{"*".repeat(8)}</p>
 
             <div className="btn-align">
               <button className="btn-atualizar" onClick={handleAtualizarClick}>
                 Atualizar
               </button>
             </div>
-
           </div>
         ) : (
-          <form className="perfil-info" onSubmit={abrirModal}>
+          <div className="perfil-info">
             <label>Nome Completo</label>
             <input
               type="text"
@@ -103,8 +117,7 @@ export function Perfil() {
               type="email"
               name="email"
               value={form.email}
-              onChange={handleChange}
-              required
+              disabled
             />
 
             <label>Telefone</label>
@@ -128,24 +141,23 @@ export function Perfil() {
             <button className="btn-atualizar" type="button" onClick={abrirModal}>
               Salvar
             </button>
+
             <div id="modalConfirmacao" className="modal">
               <div className="modal-content">
                 <h3>Tem certeza de que deseja atualizar seus dados?</h3>
                 <div className="buttons">
-                  <button className="btn btn-danger" type="submit" onSubmit={handleSalvar}>Sim, Atualizar dados</button>
+                  <button className="btn btn-danger" onClick={handleUpdate}>Sim, Atualizar dados</button>
                   <button className="btn btn-cancel" onClick={fecharModal}>Cancelar</button>
                 </div>
               </div>
             </div>
-          </form>
-
+          </div>
         )}
 
         <button className="btn-logout" onClick={handleLogout}>
           Sair
         </button>
       </div>
-
     </div>
   );
 }
