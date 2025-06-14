@@ -1,22 +1,28 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { navConfig } from '../../config/navConfig';
 import { iconRegistry } from '../../config/iconRegistry';
 import { NavEntry } from '../../config/menuTypes';
-import { useAuth } from '../../hooks/useAuth'; 
+import { useAuth } from '../../hooks/useAuth';
 import './Nav.css';
 
 export function Nav() {
   const { pathname } = useLocation();
   const { isAuthenticated, logout } = useAuth();
-  
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout(); 
+    navigate('/');
+  };
+
 
   const items = navConfig
-    .filter(item => !(item.key === 'login'  && isAuthenticated))
+    .filter(item => !(item.key === 'login' && isAuthenticated))
     .filter(item => !(item.key === 'logout' && !isAuthenticated))
     .map(item => {
       if (item.key === 'logout') {
-        return { ...item, onClick: logout };
+        return { ...item, onClick: handleLogout };
       }
       return item;
     });

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './Agenda.css';
 import FullCalendar from '@fullcalendar/react';
-import { DateClickArg} from '@fullcalendar/interaction';
+import { DateClickArg } from '@fullcalendar/interaction';
 import { EventClickArg } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -20,7 +20,7 @@ interface Agendamento {
   procedimento_id: number;
   usuario_id: number;
   data_hora: string;
-  descricao: string;
+  status: 'pendente' | 'confirmado' | 'cancelado';
   nome_procedimento?: string;
   cliente_nome?: string;
 }
@@ -30,7 +30,7 @@ interface ModalData {
   procedimento_id: number | string;
   data: string;
   hora: string;
-  descricao: string;
+  status: string;
 }
 
 export default function Agenda() {
@@ -42,38 +42,33 @@ export default function Agenda() {
     procedimento_id: '',
     data: '',
     hora: '',
-    descricao: '',
+    status: 'pendente'
   });
   const [procedimentos, setProcedimentos] = useState<Procedimento[]>([]);
+  const [modalConfirmacao, setModalConfirmacao] = useState(false);
+
+  const carregarAgendamentos = useCallback(() => {
+    const rota = user?.tipo === 0
+      ? 'http://localhost:3001/routes/agendamentos'
+      : `http://localhost:3001/routes/agendamentos/${user?.id}`;
+
+    axios.get<Agendamento[]>(rota).then(res => {
+      const eventos = res.data.map(item => ({
+        id: item.id,
+        title: item.nome_procedimento,
+        date: item.data_hora,
+        extendedProps: item
+      }));
+      setAgendamentos(eventos);
+    });
+  }, [user]);
 
   useEffect(() => {
-    if (user?.tipo === 0) {
-      axios.get<Agendamento[]>('http://localhost:3001/agendamentos')
-        .then(res => {
-          const eventos = res.data.map(item => ({
-            id: item.id,
-            title: `${item.nome_procedimento} - ${item.cliente_nome}`,
-            date: item.data_hora,
-            extendedProps: item
-          }));
-          setAgendamentos(eventos);
-        });
-    } else {
-      axios.get<Agendamento[]>(`http://localhost:3001/agendamentos/${user?.id}`)
-        .then(res => {
-          const eventos = res.data.map(item => ({
-            id: item.id,
-            title: item.nome_procedimento,
-            date: item.data_hora,
-            extendedProps: item
-          }));
-          setAgendamentos(eventos);
-        });
-    }
-
-    axios.get<Procedimento[]>('http://localhost:3001/procedimentos')
+    carregarAgendamentos();
+    axios.get<Procedimento[]>('http://localhost:3001/routes/procedimentos')
       .then(res => setProcedimentos(res.data));
-  }, [user]);
+  }, [carregarAgendamentos]);
+
 
   const handleDateClick = (info: DateClickArg) => {
     if (user?.tipo === 1) {
@@ -82,7 +77,7 @@ export default function Agenda() {
         procedimento_id: '',
         data: info.dateStr,
         hora: '',
-        descricao: ''
+        status: 'pendente'
       });
       setShowModal(true);
     }
@@ -96,10 +91,11 @@ export default function Agenda() {
       setModalData({
         id: evento.id,
         procedimento_id: evento.procedimento_id,
-        data,
-        hora,
-        descricao: evento.descricao
+        data: data,
+        hora: hora,
+        status: evento.status || 'pendente'
       });
+
       setShowModal(true);
     }
   };
@@ -107,27 +103,53 @@ export default function Agenda() {
   const handleSalvar = () => {
     const dataHora = `${modalData.data} ${modalData.hora}:00`;
     if (modalData.id) {
-      axios.put(`http://localhost:3001/agendamentos/${modalData.id}`, {
-        data_hora: dataHora
-      }).then(() => window.location.reload());
+      axios.put(`http://localhost:3001/routes/agendamentos/${modalData.id}`, {
+        data_hora: dataHora,
+        procedimento_id: modalData.procedimento_id,
+        status: modalData.status
+      }).then(() => {
+        carregarAgendamentos();
+        setShowModal(false);
+      });
     } else {
-      axios.post('http://localhost:3001/agendamentos', {
+      axios.post('http://localhost:3001/routes/agendamentos', {
         usuario_id: user?.id,
         procedimento_id: modalData.procedimento_id,
         data_hora: dataHora,
-        descricao: modalData.descricao
-      }).then(() => window.location.reload());
+        status: modalData.status
+      }).then(() => {
+        carregarAgendamentos();
+        setShowModal(false);
+      });
     }
   };
 
-  const handleExcluir = () => {
-    axios.delete(`http://localhost:3001/agendamentos/${modalData.id}`)
-      .then(() => window.location.reload());
+  const confirmarExcluir = () => {
+    setModalConfirmacao(true);
+  };
+
+  const excluirAgendamento = () => {
+    axios.delete(`http://localhost:3001/routes/agendamentos/${modalData.id}`).then(() => {
+      setModalConfirmacao(false);
+      setShowModal(false);
+      carregarAgendamentos();
+    });
   };
 
   return (
     <div className="agenda-container">
       <h1>Meus Agendamentos</h1>
+
+      <button onClick={() => {
+        setModalData({
+          id: null,
+          procedimento_id: '',
+          data: '',
+          hora: '',
+          status: 'pendente'
+        });
+        setShowModal(true);
+      }} className='btn-novo-agendamento'>Novo Agendamento</button>
 
       <div className="calendario">
         <FullCalendar
@@ -142,6 +164,7 @@ export default function Agenda() {
             center: 'title',
             end: 'dayGridMonth,timeGridWeek,timeGridDay'
           }}
+          displayEventTime={false}
           height="80vh"
         />
       </div>
@@ -149,28 +172,18 @@ export default function Agenda() {
       {showModal && (
         <div className="modal">
           <div className="modal-content">
-            <h2>{modalData.id ? 'Editar/Excluir Agendamento' : 'Novo Agendamento'}</h2>
+            <h2>{modalData.id ? 'Editar Agendamento' : 'Novo Agendamento'}</h2>
 
-            {user?.tipo === 1 && (
-              <>
-                <label>Procedimento:</label>
-                <select
-                  value={modalData.procedimento_id}
-                  onChange={(e) => setModalData({ ...modalData, procedimento_id: parseInt(e.target.value) })}
-                >
-                  <option value="">Selecione</option>
-                  {procedimentos.map((proc) => (
-                    <option key={proc.id} value={proc.id}>{proc.nome}</option>
-                  ))}
-                </select>
-
-                <label>Descrição:</label>
-                <textarea
-                  value={modalData.descricao}
-                  onChange={(e) => setModalData({ ...modalData, descricao: e.target.value })}
-                />
-              </>
-            )}
+            <label>Procedimento:</label>
+            <select
+              value={modalData.procedimento_id}
+              onChange={(e) => setModalData({ ...modalData, procedimento_id: parseInt(e.target.value) })}
+            >
+              <option value="">Selecione</option>
+              {procedimentos.map(proc => (
+                <option key={proc.id} value={proc.id}>{proc.nome}</option>
+              ))}
+            </select>
 
             <label>Data:</label>
             <input
@@ -184,15 +197,41 @@ export default function Agenda() {
               value={modalData.hora}
               onChange={(e) => setModalData({ ...modalData, hora: e.target.value })}
             >
-              {['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00'].map(h => (
+              {['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'].map(h => (
                 <option key={h} value={h}>{h}</option>
               ))}
             </select>
 
+            {user?.tipo === 0 && (
+              <>
+                <label>Status:</label>
+                <select
+                  value={modalData.status}
+                  onChange={(e) => setModalData({ ...modalData, status: e.target.value })}
+                >
+                  <option value="pendente">Pendente</option>
+                  <option value="confirmado">Confirmado</option>
+                  <option value="cancelado">Cancelado</option>
+                </select>
+              </>
+            )}
+
             <div className="modal-buttons">
               <button onClick={handleSalvar}>Salvar</button>
-              {modalData.id && <button onClick={handleExcluir}>Excluir</button>}
+              {modalData.id && <button onClick={confirmarExcluir}>Excluir</button>}
               <button onClick={() => setShowModal(false)}>Cancelar</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {modalConfirmacao && (
+        <div className="modalConf">
+          <div className="modal-content-Conf">
+            <h3>Tem certeza de que deseja excluir o agendamento permanentemente?</h3>
+            <div className="buttons">
+              <button className="btn btn-danger" onClick={excluirAgendamento}>Sim, Excluir agendamento</button>
+              <button className="btn btn-cancel" onClick={() => setModalConfirmacao(false)}>Cancelar</button>
             </div>
           </div>
         </div>

@@ -10,13 +10,14 @@ module.exports = {
   },
 
   create: (agendamento, callback) => {
-    const { usuario_id, procedimento_id, data_hora } = agendamento;
+    const { usuario_id, procedimento_id, data_hora, status } = agendamento;
     db.query(
-      'INSERT INTO agendamentos (usuario_id, procedimento_id, data_hora) VALUES (?, ?, ?)',
-      [usuario_id, procedimento_id, data_hora],
+      'INSERT INTO agendamentos (usuario_id, procedimento_id, data_hora, status) VALUES (?, ?, ?, ?)',
+      [usuario_id, procedimento_id, data_hora, status],
       callback
     );
   },
+
 
   getAll: (callback) => {
     db.query(
@@ -25,13 +26,14 @@ module.exports = {
     );
   },
 
-  update: (id, data_hora, callback) => {
+  update: (id, { data_hora, procedimento_id, status }, callback) => {
     db.query(
-      'UPDATE agendamentos SET data_hora = ? WHERE id = ?',
-      [data_hora, id],
+      'UPDATE agendamentos SET data_hora = ?, procedimento_id = ?, status = ? WHERE id = ?',
+      [data_hora, procedimento_id, status, id],
       callback
     );
   },
+
 
   delete: (id, callback) => {
     db.query(

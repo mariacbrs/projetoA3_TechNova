@@ -50,7 +50,7 @@ export function CardHome({ title, description }: CardProps) {
         className="card-button"
         whileTap={{ scale: 0.95 }}
       >
-        Agende agora!
+        Agende já!
       </motion.button>
     </motion.div>
   );

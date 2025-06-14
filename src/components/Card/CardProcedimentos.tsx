@@ -3,13 +3,13 @@ import "./Card.css";
 
 export interface CardProps {
   id: number;
-  titulo: string;
+  nome: string;
   descricao: string;
-  onEdit: (data: { id: number; titulo: string; descricao: string}) => void;
+  onEdit: (data: { id: number; nome: string; descricao: string}) => void;
   onDelete: (id: number) => void;
 }
 
-export function CardProcedimentos({ id, titulo, descricao, onEdit, onDelete }: CardProps) {
+export function CardProcedimentos({ id, nome, descricao, onEdit, onDelete }: CardProps) {
   return (
     <motion.div
       className="card"
@@ -19,13 +19,13 @@ export function CardProcedimentos({ id, titulo, descricao, onEdit, onDelete }: C
       transition={{ duration: 0.4, ease: "easeOut" }}
       whileHover={{ scale: 1.02, boxShadow: "0 8px 24px rgba(0,0,0,0.15)" }}
     >
-      <motion.h2 className="card-title">{titulo}</motion.h2>
+      <motion.h2 className="card-title">{nome}</motion.h2>
       <motion.p className="card-description">{descricao}</motion.p>
 
 
       <div>
         <motion.button
-          onClick={() => onEdit({ id, titulo, descricao})}
+          onClick={() => onEdit({ id, nome, descricao})}
           className="card-button"
         >
           Editar

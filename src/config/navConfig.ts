@@ -22,7 +22,7 @@ export const navConfig: NavEntry[] = [
   },
   {
     key: 'logout',
-    label: 'Sair',
+    label: '',
     icon: 'LogOut',
     onClick: undefined
   },

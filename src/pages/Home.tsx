@@ -38,8 +38,8 @@ export function Home() {
           <div className="products-grid">
             {products.map(p => (
               <CardHome
-                key={p.id}
-                title={p.titulo}
+                // key={p.id}
+                title={p.nome}
                 description={p.descricao}
               />
             ))}

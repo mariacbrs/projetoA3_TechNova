@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 
+
 interface User {
   id: number;
   nome: string;
@@ -24,7 +25,7 @@ export const AuthProvider = ({ children }: any) => {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('user'); // ou qualquer lógica de logout que esteja usando
+    localStorage.clear();
   };
 
   return (

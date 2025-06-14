@@ -16,7 +16,7 @@ export default function Procedimentos() {
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [form, setForm] = useState({ titulo: "", descricao: ""});
+  const [form, setForm] = useState({ nome: "", descricao: ""});
 
   const loadProducts = () => {
     fetchProducts().then((data) => {
@@ -31,14 +31,14 @@ export default function Procedimentos() {
 
   const handleAdd = () => {
     setSelectedProduct(null);
-    setForm({ titulo: "", descricao: ""});
+    setForm({ nome: "", descricao: ""});
     setModalOpen(true);
   };
 
   const handleEdit = (product: Product) => {
     setSelectedProduct(product);
     setForm({
-      titulo: product.titulo,
+      nome: product.nome,
       descricao: product.descricao
     });
     setModalOpen(true);
@@ -50,13 +50,13 @@ export default function Procedimentos() {
   };
 
   const handleSave = async () => {
-    if (!form.titulo || !form.descricao) {
+    if (!form.nome || !form.descricao) {
       alert("Preencha todos os campos.");
       return;
     }
 
     const data = {
-      titulo: form.titulo,
+      nome: form.nome,
       descricao: form.descricao
     };
 
@@ -89,7 +89,7 @@ export default function Procedimentos() {
               <CardProcedimentos
                 key={item.id}
                 id={item.id}
-                titulo={item.titulo}
+                nome={item.nome}
                 descricao={item.descricao}
                 onEdit={() => handleEdit(item)}
                 onDelete={() => handleDelete(item.id)}
@@ -106,9 +106,9 @@ export default function Procedimentos() {
             <h2>{selectedProduct ? "Editar Procedimento" : "Novo Procedimento"}</h2>
 
             <input
-              placeholder="Título"
-              value={form.titulo}
-              onChange={(e) => setForm({ ...form, titulo: e.target.value })}
+              placeholder="Nome"
+              value={form.nome}
+              onChange={(e) => setForm({ ...form, nome: e.target.value })}
             />
 
             <textarea

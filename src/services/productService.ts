@@ -2,7 +2,7 @@ import api from './api';
 
 export type Product = {
   readonly id: number;
-  readonly titulo: string;
+  readonly nome: string;
   readonly descricao: string
 };
 

@@ -7,8 +7,15 @@ import "./Perfil.css";
 export function Perfil() {
   const { user, setUser } = useAuth();
   const [editando, setEditando] = useState(false);
+  const [modalAberto, setModalAberto] = useState(false);
   const [form, setForm] = useState({ nome: '', email: '', telefone: '', senha: '' });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     if (user) {
@@ -30,7 +37,7 @@ export function Perfil() {
     if (!user) return;
 
     try {
-      await axios.put(`http://localhost:3001/api/auth/${user.id}`, form);
+      await axios.put(`http://localhost:3001/routes/auth/${user.id}`, form);
       setUser({
         ...user,
         nome: form.nome,
@@ -55,12 +62,12 @@ export function Perfil() {
   };
 
   function abrirModal() {
-    document.getElementById("modalConfirmacao")!.style.display = "flex";
+    setModalAberto(true);
   }
 
   function fecharModal() {
     if (!user) return;
-    document.getElementById("modalConfirmacao")!.style.display = "none";
+    setModalAberto(false);
     setForm({
       nome: user.nome,
       email: user.email,
@@ -70,10 +77,7 @@ export function Perfil() {
     setEditando(false);
   }
 
-  if (!user) {
-    return <p>Carregando usuário...</p>;
-  }
-
+  if (!user) return <div>Carregando...</div>; 
   return (
     <div className="perfil-container">
       <div className="perfil-header">
@@ -141,16 +145,17 @@ export function Perfil() {
             <button className="btn-atualizar" type="button" onClick={abrirModal}>
               Salvar
             </button>
-
-            <div id="modalConfirmacao" className="modal">
-              <div className="modal-content">
-                <h3>Tem certeza de que deseja atualizar seus dados?</h3>
-                <div className="buttons">
-                  <button className="btn btn-danger" onClick={handleUpdate}>Sim, Atualizar dados</button>
-                  <button className="btn btn-cancel" onClick={fecharModal}>Cancelar</button>
+            {modalAberto && (
+              <div id="modalConfirmacao" className="modal">
+                <div className="modal-content">
+                  <h3>Tem certeza de que deseja atualizar seus dados?</h3>
+                  <div className="buttons">
+                    <button className="btn btn-danger" onClick={handleUpdate}>Sim, Atualizar dados</button>
+                    <button className="btn btn-cancel" onClick={fecharModal}>Cancelar</button>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         )}
 

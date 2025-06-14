@@ -25,7 +25,7 @@ export function Login() {
        setUser(usuario);
       localStorage.setItem('userRole', usuario.tipo === 0 ? 'admin' : 'cliente');
 
-      navigate(usuario.tipo === 0 ? '/admin/home' : '/cliente/home');
+      navigate('/');
     } catch (err) {
       setErro('Email ou senha inválidos');
     } finally {
