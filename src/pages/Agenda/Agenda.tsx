@@ -69,7 +69,6 @@ export default function Agenda() {
       .then(res => setProcedimentos(res.data));
   }, [carregarAgendamentos]);
 
-
   const handleDateClick = (info: DateClickArg) => {
     if (user?.tipo === 1) {
       setModalData({
@@ -87,7 +86,8 @@ export default function Agenda() {
     const evento = info.event.extendedProps as Agendamento;
     if (user?.tipo === 0 || evento.usuario_id === user?.id) {
       const data = evento.data_hora.slice(0, 10);
-      const hora = evento.data_hora.slice(11, 16);
+      const dataHoraLocal = new Date(evento.data_hora);
+      const hora = dataHoraLocal.toTimeString().slice(0, 5);
       setModalData({
         id: evento.id,
         procedimento_id: evento.procedimento_id,
@@ -101,7 +101,17 @@ export default function Agenda() {
   };
 
   const handleSalvar = () => {
+    if (
+      modalData.procedimento_id === '' ||
+      modalData.data === '' ||
+      modalData.hora === ''
+    ) {
+      alert('Por favor, preencha todos os campos.');
+      return;
+    }
+
     const dataHora = `${modalData.data} ${modalData.hora}:00`;
+
     if (modalData.id) {
       axios.put(`http://localhost:3001/routes/agendamentos/${modalData.id}`, {
         data_hora: dataHora,
@@ -110,7 +120,7 @@ export default function Agenda() {
       }).then(() => {
         carregarAgendamentos();
         setShowModal(false);
-      });
+      }).catch(() => alert('Erro ao atualizar o agendamento.'));
     } else {
       axios.post('http://localhost:3001/routes/agendamentos', {
         usuario_id: user?.id,
@@ -120,7 +130,7 @@ export default function Agenda() {
       }).then(() => {
         carregarAgendamentos();
         setShowModal(false);
-      });
+      }).catch(() => alert('Erro ao criar o agendamento.'));
     }
   };
 
@@ -133,7 +143,7 @@ export default function Agenda() {
       setModalConfirmacao(false);
       setShowModal(false);
       carregarAgendamentos();
-    });
+    }).catch(() => alert('Erro ao excluir agendamento.'));
   };
 
   return (
@@ -179,7 +189,7 @@ export default function Agenda() {
               value={modalData.procedimento_id}
               onChange={(e) => setModalData({ ...modalData, procedimento_id: parseInt(e.target.value) })}
             >
-              <option value="">Selecione</option>
+              <option value="" disabled selected>Selecione</option>
               {procedimentos.map(proc => (
                 <option key={proc.id} value={proc.id}>{proc.nome}</option>
               ))}
@@ -197,6 +207,7 @@ export default function Agenda() {
               value={modalData.hora}
               onChange={(e) => setModalData({ ...modalData, hora: e.target.value })}
             >
+              <option value="" disabled selected>Selecione</option>
               {['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'].map(h => (
                 <option key={h} value={h}>{h}</option>
               ))}

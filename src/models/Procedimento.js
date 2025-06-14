@@ -6,11 +6,11 @@ module.exports = {
   },
 
   create: (data, callback) => {
-    db.query('INSERT INTO procedimentos (title, description) VALUES (?, ?)', [data.title, data.description], callback);
+    db.query('INSERT INTO procedimentos (nome, descricao) VALUES (?, ?)', [data.nome, data.descricao], callback);
   },
 
   update: (id, data, callback) => {
-    db.query('UPDATE procedimentos SET title = ?, description = ? WHERE id = ?', [data.title, data.description, id], callback);
+    db.query('UPDATE procedimentos SET nome = ?, descricao = ? WHERE id = ?', [data.nome, data.descricao, id], callback);
   },
 
   delete: (id, callback) => {

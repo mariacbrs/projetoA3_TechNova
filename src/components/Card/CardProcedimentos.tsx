@@ -23,14 +23,14 @@ export function CardProcedimentos({ id, nome, descricao, onEdit, onDelete }: Car
       <motion.p className="card-description">{descricao}</motion.p>
 
 
-      <div>
+      <div className="buttons-actions">
         <motion.button
           onClick={() => onEdit({ id, nome, descricao})}
-          className="card-button"
+          className="card-button-action"
         >
           Editar
         </motion.button>
-        <motion.button onClick={() => onDelete(id)} className="card-button">
+        <motion.button onClick={() => onDelete(id)} className="card-button-action">
           Excluir
         </motion.button>
       </div>

@@ -15,8 +15,10 @@ export default function Procedimentos() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
+  const [modalConfirmacao, setModalConfirmacao] = useState(false);
+  const [idParaExcluir, setIdParaExcluir] = useState<number | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [form, setForm] = useState({ nome: "", descricao: ""});
+  const [form, setForm] = useState({ nome: "", descricao: "" });
 
   const loadProducts = () => {
     fetchProducts().then((data) => {
@@ -31,7 +33,7 @@ export default function Procedimentos() {
 
   const handleAdd = () => {
     setSelectedProduct(null);
-    setForm({ nome: "", descricao: ""});
+    setForm({ nome: "", descricao: "" });
     setModalOpen(true);
   };
 
@@ -44,9 +46,18 @@ export default function Procedimentos() {
     setModalOpen(true);
   };
 
-  const handleDelete = async (id: number) => {
-    await deleteProduct(id);
-    loadProducts();
+  const handleDelete = (id: number) => {
+    setIdParaExcluir(id);
+    setModalConfirmacao(true);
+  };
+
+  const confirmarExclusao = async () => {
+    if (idParaExcluir !== null) {
+      await deleteProduct(idParaExcluir);
+      setIdParaExcluir(null);
+      setModalConfirmacao(false);
+      loadProducts();
+    }
   };
 
   const handleSave = async () => {
@@ -98,11 +109,9 @@ export default function Procedimentos() {
           </div>
         )}
       </div>
-
-      {/* MODAL */}
       {modalOpen && (
-        <div className="modal-backdrop">
-          <div className="modal-content card">
+        <div className="modal">
+          <div className="modal-content">
             <h2>{selectedProduct ? "Editar Procedimento" : "Novo Procedimento"}</h2>
 
             <input
@@ -117,9 +126,25 @@ export default function Procedimentos() {
               onChange={(e) => setForm({ ...form, descricao: e.target.value })}
             />
 
-            <div className="modal-actions">
+            <div className="modal-buttons">
               <button onClick={handleSave}>Salvar</button>
               <button onClick={() => setModalOpen(false)}>Cancelar</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {modalConfirmacao && (
+        <div className="modalConf">
+          <div className="modal-content-Conf">
+            <h3>Tem certeza de que deseja excluir o procedimento permanentemente?</h3>
+            <div className="buttons">
+              <button className="btn btn-danger" onClick={confirmarExclusao}>
+                Sim, Excluir procedimento
+              </button>
+              <button className="btn btn-cancel" onClick={() => setModalConfirmacao(false)}>
+                Cancelar
+              </button>
             </div>
           </div>
         </div>

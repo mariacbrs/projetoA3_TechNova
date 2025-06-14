@@ -1,8 +1,5 @@
 import { SideMenuItem, MenuSection } from './menuTypes';
 
-/**
- * Configuração do SideMenu, se path => navegação, senão => onClick
- */
 export const menuAdminConfig: MenuSection<SideMenuItem>[] = [
   {
     items: [
